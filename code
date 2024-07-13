@@ -1,22 +1,26 @@
-class Solution {
-  public:
-    long long maxDiamonds(int A[], int N, int K) {
-        //step 1
-        //make max heap
-        priority_queue<int>pq;
-        for(int i=0;i<N;i++){
-            pq.push(A[i]);
+class Solution
+{
+    public:
+    //Function to return the minimum cost of connecting the ropes.
+    long long minCost(long long arr[], long long n) {
+        //first we make a min heap
+        priority_queue<long long,vector<long long>,greater<long long>>minheap;
+        //insert all element to minheap
+        for(long long i=0;i<n;i++){
+            minheap.push(arr[i]);
         }
-        
-        int time=0;
-        long long ans=0;
-        while(time<K){
-            time++;
-            long long a=pq.top();
-            pq.pop();
-            ans=ans+a;
-            pq.push(a/2);
+        long long cost=0;
+        //long long size=minheap.size();
+        while(n>1){
+            long long a=minheap.top();
+            minheap.pop();
+            long long b=minheap.top();
+            minheap.pop();
+            long long sum=a+b;
+            cost=cost+sum;
+            minheap.push(sum);
+            n--;
         }
-        return ans;
+        return cost;
     }
 };
